@@ -28,19 +28,19 @@
         }
 
         [data-theme="dark"] {
-            --bg-primary: #121212;
-            --bg-secondary: #1e1e1e;
-            --bg-header: #0d0d0d;
-            --text-primary: #f0f0f0;
-            --text-secondary: #c0c0c0;
+            --bg-primary: #1a1a1a;
+            --bg-secondary: #2d2d2d;
+            --bg-header: #1a1a1a;
+            --text-primary: #e0e0e0;
+            --text-secondary: #b0b0b0;
             --text-header: #ffffff;
-            --border-color: #555555;
-            --category-bg: #2a2a2a;
-            --hover-bg: #333333;
-            --input-bg: #1e1e1e;
-            --input-border: #666666;
-            --checkbox-bg: #2a2a2a;
-            --shadow: rgba(0, 0, 0, 0.5);
+            --border-color: #404040;
+            --category-bg: #2d2d2d;
+            --hover-bg: #3a3a3a;
+            --input-bg: #2d2d2d;
+            --input-border: #404040;
+            --checkbox-bg: #2d2d2d;
+            --shadow: rgba(0, 0, 0, 0.3);
         }
 
         body {
@@ -191,14 +191,8 @@
         .checklist-container {
             background-color: var(--bg-secondary);
             border-radius: 8px;
-            overflow-x: auto;
-            overflow-y: visible;
+            overflow: hidden;
             box-shadow: 0 2px 8px var(--shadow);
-            -webkit-overflow-scrolling: touch;
-        }
-
-        [data-theme="dark"] .checklist-container {
-            border: 1px solid #444444;
         }
 
         .checklist-sheet {
@@ -217,14 +211,6 @@
         thead {
             background-color: var(--bg-header);
             color: var(--text-header);
-            position: sticky;
-            top: 0;
-            z-index: 10;
-        }
-
-        [data-theme="dark"] thead {
-            background-color: #0d0d0d;
-            border-bottom: 2px solid #555555;
         }
 
         th {
@@ -233,28 +219,11 @@
             font-weight: 600;
             font-size: 14px;
             border-bottom: 2px solid var(--border-color);
-            position: sticky;
-            top: 0;
-            background-color: var(--bg-header);
-        }
-
-        [data-theme="dark"] th {
-            background-color: #0d0d0d;
-            border-right: 1px solid #444444;
-            border-bottom: 2px solid #555555;
-        }
-
-        [data-theme="dark"] th:last-child {
-            border-right: none;
         }
 
         tbody tr {
             border-bottom: 1px solid var(--border-color);
             transition: background-color 0.2s;
-        }
-
-        [data-theme="dark"] tbody tr {
-            border-bottom: 1px solid #444444;
         }
 
         tbody tr:hover {
@@ -266,12 +235,6 @@
             font-weight: bold;
         }
 
-        [data-theme="dark"] tbody tr.category-row {
-            background-color: #2a2a2a;
-            border-top: 2px solid #555555;
-            border-bottom: 2px solid #555555;
-        }
-
         tbody tr.category-row:hover {
             background-color: var(--category-bg);
         }
@@ -279,15 +242,6 @@
         td {
             padding: 12px;
             font-size: 14px;
-            border-right: 1px solid transparent;
-        }
-
-        [data-theme="dark"] td {
-            border-right: 1px solid #333333;
-        }
-
-        [data-theme="dark"] td:last-child {
-            border-right: none;
         }
 
         .task-cell {
@@ -315,10 +269,6 @@
             background-color: var(--checkbox-bg);
             position: relative;
             transition: all 0.3s;
-        }
-
-        [data-theme="dark"] input[type="checkbox"] {
-            border: 2px solid #888888;
         }
 
         input[type="checkbox"]:checked {
@@ -363,19 +313,6 @@
             font-size: 13px;
         }
 
-        [data-theme="dark"] input[type="text"],
-        [data-theme="dark"] input[type="date"],
-        [data-theme="dark"] textarea {
-            border: 1.5px solid #777777;
-        }
-
-        [data-theme="dark"] input[type="text"]:focus,
-        [data-theme="dark"] input[type="date"]:focus,
-        [data-theme="dark"] textarea:focus {
-            border-color: #999999;
-            outline: none;
-        }
-
         textarea {
             resize: vertical;
             min-height: 40px;
@@ -400,21 +337,9 @@
             white-space: nowrap;
         }
 
-        [data-theme="dark"] .same-above-btn {
-            border: 1.5px solid #666666;
-            background-color: #252525;
-            color: #bbbbbb;
-        }
-
         .same-above-btn:hover {
             background-color: var(--hover-bg);
             color: var(--text-primary);
-        }
-
-        [data-theme="dark"] .same-above-btn:hover {
-            background-color: #333333;
-            color: #ffffff;
-            border-color: #888888;
         }
 
         .mobile-layout table {
@@ -519,9 +444,9 @@
                         <tr class="category-row">
                             <td>People & Scheduling</td>
                             <td class="task-cell">GM Schedule Reviewed</td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-yes"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-no"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-pending"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_cs_0" value="yes" class="checkbox-yes"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_cs_0" value="no" class="checkbox-no"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_cs_0" value="pending" class="checkbox-pending"></div></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><div class="date-cell"><input type="date" class="follow-up-date"></div></td>
@@ -529,9 +454,9 @@
                         <tr>
                             <td></td>
                             <td class="task-cell">Employee Schedules Reviewed</td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-yes"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-no"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-pending"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_cs_1" value="yes" class="checkbox-yes"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_cs_1" value="no" class="checkbox-no"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_cs_1" value="pending" class="checkbox-pending"></div></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><div class="date-cell"><input type="date" class="follow-up-date"><button class="same-above-btn" onclick="copyDateAbove(this)">Same as above</button></div></td>
@@ -539,9 +464,9 @@
                         <tr>
                             <td></td>
                             <td class="task-cell">Employee Turnover Ratios Reviewed</td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-yes"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-no"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-pending"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_cs_2" value="yes" class="checkbox-yes"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_cs_2" value="no" class="checkbox-no"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_cs_2" value="pending" class="checkbox-pending"></div></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><div class="date-cell"><input type="date" class="follow-up-date"><button class="same-above-btn" onclick="copyDateAbove(this)">Same as above</button></div></td>
@@ -549,9 +474,9 @@
                         <tr class="category-row">
                             <td>Operations & Standards</td>
                             <td class="task-cell">Exterior Cleanliness</td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-yes"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-no"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-pending"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_cs_3" value="yes" class="checkbox-yes"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_cs_3" value="no" class="checkbox-no"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_cs_3" value="pending" class="checkbox-pending"></div></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><div class="date-cell"><input type="date" class="follow-up-date"><button class="same-above-btn" onclick="copyDateAbove(this)">Same as above</button></div></td>
@@ -559,9 +484,9 @@
                         <tr>
                             <td></td>
                             <td class="task-cell">Interior Cleanliness</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_cs_4" value="yes" class="checkbox-yes"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_cs_4" value="no" class="checkbox-no"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_cs_4" value="pending" class="checkbox-pending"></div></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><div class="date-cell"><input type="date" class="follow-up-date"><button class="same-above-btn" onclick="copyDateAbove(this)">Same as above</button></div></td>
@@ -569,9 +494,9 @@
                         <tr>
                             <td></td>
                             <td class="task-cell">Fuel Area Cleanliness</td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-yes"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-no"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-pending"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_cs_5" value="yes" class="checkbox-yes"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_cs_5" value="no" class="checkbox-no"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_cs_5" value="pending" class="checkbox-pending"></div></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><div class="date-cell"><input type="date" class="follow-up-date"><button class="same-above-btn" onclick="copyDateAbove(this)">Same as above</button></div></td>
@@ -579,9 +504,9 @@
                         <tr>
                             <td></td>
                             <td class="task-cell">Pump Maintenance and Cleanliness</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_cs_6" value="yes" class="checkbox-yes"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_cs_6" value="no" class="checkbox-no"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_cs_6" value="pending" class="checkbox-pending"></div></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><div class="date-cell"><input type="date" class="follow-up-date"><button class="same-above-btn" onclick="copyDateAbove(this)">Same as above</button></div></td>
@@ -589,9 +514,9 @@
                         <tr>
                             <td></td>
                             <td class="task-cell">Uniform Policy Compliance</td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-yes"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-no"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-pending"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_cs_7" value="yes" class="checkbox-yes"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_cs_7" value="no" class="checkbox-no"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_cs_7" value="pending" class="checkbox-pending"></div></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><div class="date-cell"><input type="date" class="follow-up-date"><button class="same-above-btn" onclick="copyDateAbove(this)">Same as above</button></div></td>
@@ -599,9 +524,9 @@
                         <tr>
                             <td></td>
                             <td class="task-cell">Store Shift Walk Completed</td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-yes"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-no"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-pending"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_cs_8" value="yes" class="checkbox-yes"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_cs_8" value="no" class="checkbox-no"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_cs_8" value="pending" class="checkbox-pending"></div></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><div class="date-cell"><input type="date" class="follow-up-date"><button class="same-above-btn" onclick="copyDateAbove(this)">Same as above</button></div></td>
@@ -609,9 +534,9 @@
                         <tr>
                             <td></td>
                             <td class="task-cell">Restrooms Clean & Logs Complete</td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-yes"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-no"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-pending"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_cs_9" value="yes" class="checkbox-yes"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_cs_9" value="no" class="checkbox-no"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_cs_9" value="pending" class="checkbox-pending"></div></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><div class="date-cell"><input type="date" class="follow-up-date"><button class="same-above-btn" onclick="copyDateAbove(this)">Same as above</button></div></td>
@@ -619,9 +544,9 @@
                         <tr class="category-row">
                             <td>Customer Experience</td>
                             <td class="task-cell">Customer Service Observation (“Welcome to Paradise”)</td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-yes"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-no"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-pending"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_cs_10" value="yes" class="checkbox-yes"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_cs_10" value="no" class="checkbox-no"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_cs_10" value="pending" class="checkbox-pending"></div></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><div class="date-cell"><input type="date" class="follow-up-date"><button class="same-above-btn" onclick="copyDateAbove(this)">Same as above</button></div></td>
@@ -629,9 +554,9 @@
                         <tr>
                             <td></td>
                             <td class="task-cell">Upselling Observed</td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-yes"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-no"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-pending"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_cs_11" value="yes" class="checkbox-yes"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_cs_11" value="no" class="checkbox-no"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_cs_11" value="pending" class="checkbox-pending"></div></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><div class="date-cell"><input type="date" class="follow-up-date"><button class="same-above-btn" onclick="copyDateAbove(this)">Same as above</button></div></td>
@@ -639,9 +564,9 @@
                         <tr class="category-row">
                             <td>Cash & Controls</td>
                             <td class="task-cell">Petty Cash Count Matches</td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-yes"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-no"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-pending"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_cs_12" value="yes" class="checkbox-yes"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_cs_12" value="no" class="checkbox-no"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_cs_12" value="pending" class="checkbox-pending"></div></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><div class="date-cell"><input type="date" class="follow-up-date"><button class="same-above-btn" onclick="copyDateAbove(this)">Same as above</button></div></td>
@@ -649,9 +574,9 @@
                         <tr>
                             <td></td>
                             <td class="task-cell">Safe Drops Observed and Matching Totals</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_cs_13" value="yes" class="checkbox-yes"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_cs_13" value="no" class="checkbox-no"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_cs_13" value="pending" class="checkbox-pending"></div></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><div class="date-cell"><input type="date" class="follow-up-date"><button class="same-above-btn" onclick="copyDateAbove(this)">Same as above</button></div></td>
@@ -659,9 +584,9 @@
                         <tr>
                             <td></td>
                             <td class="task-cell">Cash Over / Short Reviewed</td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-yes"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-no"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-pending"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_cs_14" value="yes" class="checkbox-yes"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_cs_14" value="no" class="checkbox-no"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_cs_14" value="pending" class="checkbox-pending"></div></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><div class="date-cell"><input type="date" class="follow-up-date"><button class="same-above-btn" onclick="copyDateAbove(this)">Same as above</button></div></td>
@@ -669,9 +594,9 @@
                         <tr>
                             <td></td>
                             <td class="task-cell">Refunds / Deletes / Voids / Manager Meals Reviewed</td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-yes"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-no"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-pending"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_cs_15" value="yes" class="checkbox-yes"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_cs_15" value="no" class="checkbox-no"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_cs_15" value="pending" class="checkbox-pending"></div></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><div class="date-cell"><input type="date" class="follow-up-date"><button class="same-above-btn" onclick="copyDateAbove(this)">Same as above</button></div></td>
@@ -679,9 +604,9 @@
                         <tr>
                             <td></td>
                             <td class="task-cell">All Cash Paid-Outs Match Invoices & Daily Paperwork</td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-yes"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-no"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-pending"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_cs_16" value="yes" class="checkbox-yes"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_cs_16" value="no" class="checkbox-no"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_cs_16" value="pending" class="checkbox-pending"></div></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><div class="date-cell"><input type="date" class="follow-up-date"><button class="same-above-btn" onclick="copyDateAbove(this)">Same as above</button></div></td>
@@ -689,9 +614,9 @@
                         <tr class="category-row">
                             <td>Financial Performance</td>
                             <td class="task-cell">Inside Sales vs Plan Reviewed</td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-yes"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-no"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-pending"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_cs_17" value="yes" class="checkbox-yes"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_cs_17" value="no" class="checkbox-no"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_cs_17" value="pending" class="checkbox-pending"></div></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><div class="date-cell"><input type="date" class="follow-up-date"><button class="same-above-btn" onclick="copyDateAbove(this)">Same as above</button></div></td>
@@ -699,9 +624,9 @@
                         <tr>
                             <td></td>
                             <td class="task-cell">Fuel Gallons Sales vs Plan Reviewed</td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-yes"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-no"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-pending"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_cs_18" value="yes" class="checkbox-yes"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_cs_18" value="no" class="checkbox-no"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_cs_18" value="pending" class="checkbox-pending"></div></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><div class="date-cell"><input type="date" class="follow-up-date"><button class="same-above-btn" onclick="copyDateAbove(this)">Same as above</button></div></td>
@@ -709,9 +634,9 @@
                         <tr class="category-row">
                             <td>Fuel & Compliance</td>
                             <td class="task-cell">ATG Fuel Reading Printed & Entered in CSPro</td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-yes"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-no"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-pending"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_cs_19" value="yes" class="checkbox-yes"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_cs_19" value="no" class="checkbox-no"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_cs_19" value="pending" class="checkbox-pending"></div></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><div class="date-cell"><input type="date" class="follow-up-date"><button class="same-above-btn" onclick="copyDateAbove(this)">Same as above</button></div></td>
@@ -719,9 +644,9 @@
                         <tr>
                             <td></td>
                             <td class="task-cell">Leak Test Printed & Uploaded in Bitrix</td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-yes"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-no"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-pending"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_cs_20" value="yes" class="checkbox-yes"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_cs_20" value="no" class="checkbox-no"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_cs_20" value="pending" class="checkbox-pending"></div></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><div class="date-cell"><input type="date" class="follow-up-date"><button class="same-above-btn" onclick="copyDateAbove(this)">Same as above</button></div></td>
@@ -729,9 +654,9 @@
                         <tr>
                             <td></td>
                             <td class="task-cell">Daily Fuel Prices Email Sent</td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-yes"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-no"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-pending"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_cs_21" value="yes" class="checkbox-yes"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_cs_21" value="no" class="checkbox-no"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_cs_21" value="pending" class="checkbox-pending"></div></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><div class="date-cell"><input type="date" class="follow-up-date"><button class="same-above-btn" onclick="copyDateAbove(this)">Same as above</button></div></td>
@@ -739,9 +664,9 @@
                         <tr class="category-row">
                             <td>Accounts & Audit</td>
                             <td class="task-cell">Charge Customer Deposits Verified</td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-yes"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-no"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-pending"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_cs_22" value="yes" class="checkbox-yes"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_cs_22" value="no" class="checkbox-no"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_cs_22" value="pending" class="checkbox-pending"></div></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><div class="date-cell"><input type="date" class="follow-up-date"><button class="same-above-btn" onclick="copyDateAbove(this)">Same as above</button></div></td>
@@ -749,9 +674,9 @@
                         <tr>
                             <td></td>
                             <td class="task-cell">Audit Charge Customer Sales & Collections (CSPro)</td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-yes"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-no"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-pending"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_cs_23" value="yes" class="checkbox-yes"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_cs_23" value="no" class="checkbox-no"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_cs_23" value="pending" class="checkbox-pending"></div></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><div class="date-cell"><input type="date" class="follow-up-date"><button class="same-above-btn" onclick="copyDateAbove(this)">Same as above</button></div></td>
@@ -778,9 +703,9 @@
                         <tr class="category-row">
                             <td>People & Scheduling</td>
                             <td class="task-cell">GM Schedule Reviewed</td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-yes"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-no"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-pending"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_0" value="yes" class="checkbox-yes"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_0" value="no" class="checkbox-no"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_0" value="pending" class="checkbox-pending"></div></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><div class="date-cell"><input type="date" class="follow-up-date"></div></td>
@@ -788,9 +713,9 @@
                         <tr>
                             <td></td>
                             <td class="task-cell">Employee Schedules Reviewed</td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-yes"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-no"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-pending"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_1" value="yes" class="checkbox-yes"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_1" value="no" class="checkbox-no"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_1" value="pending" class="checkbox-pending"></div></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><div class="date-cell"><input type="date" class="follow-up-date"><button class="same-above-btn" onclick="copyDateAbove(this)">Same as above</button></div></td>
@@ -798,9 +723,9 @@
                         <tr>
                             <td></td>
                             <td class="task-cell">Employee Turnover Ratios Reviewed</td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-yes"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-no"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-pending"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_2" value="yes" class="checkbox-yes"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_2" value="no" class="checkbox-no"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_2" value="pending" class="checkbox-pending"></div></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><div class="date-cell"><input type="date" class="follow-up-date"><button class="same-above-btn" onclick="copyDateAbove(this)">Same as above</button></div></td>
@@ -808,9 +733,9 @@
                         <tr class="category-row">
                             <td>Cleanliness & Operations Standards</td>
                             <td class="task-cell">Exterior Cleanliness</td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-yes"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-no"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-pending"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_3" value="yes" class="checkbox-yes"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_3" value="no" class="checkbox-no"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_3" value="pending" class="checkbox-pending"></div></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><div class="date-cell"><input type="date" class="follow-up-date"><button class="same-above-btn" onclick="copyDateAbove(this)">Same as above</button></div></td>
@@ -818,9 +743,9 @@
                         <tr>
                             <td></td>
                             <td class="task-cell">Interior Cleanliness</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_4" value="yes" class="checkbox-yes"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_4" value="no" class="checkbox-no"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_4" value="pending" class="checkbox-pending"></div></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><div class="date-cell"><input type="date" class="follow-up-date"><button class="same-above-btn" onclick="copyDateAbove(this)">Same as above</button></div></td>
@@ -828,9 +753,9 @@
                         <tr>
                             <td></td>
                             <td class="task-cell">Preventatie Maintenance Checklists Completed</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_5" value="yes" class="checkbox-yes"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_5" value="no" class="checkbox-no"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_5" value="pending" class="checkbox-pending"></div></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><div class="date-cell"><input type="date" class="follow-up-date"><button class="same-above-btn" onclick="copyDateAbove(this)">Same as above</button></div></td>
@@ -838,9 +763,9 @@
                         <tr>
                             <td></td>
                             <td class="task-cell">POP & Menu Boards Accurate and Current</td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-yes"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-no"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-pending"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_6" value="yes" class="checkbox-yes"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_6" value="no" class="checkbox-no"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_6" value="pending" class="checkbox-pending"></div></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><div class="date-cell"><input type="date" class="follow-up-date"><button class="same-above-btn" onclick="copyDateAbove(this)">Same as above</button></div></td>
@@ -848,9 +773,9 @@
                         <tr>
                             <td></td>
                             <td class="task-cell">Uniform Policy Compliance</td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-yes"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-no"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-pending"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_7" value="yes" class="checkbox-yes"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_7" value="no" class="checkbox-no"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_7" value="pending" class="checkbox-pending"></div></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><div class="date-cell"><input type="date" class="follow-up-date"><button class="same-above-btn" onclick="copyDateAbove(this)">Same as above</button></div></td>
@@ -858,9 +783,9 @@
                         <tr>
                             <td></td>
                             <td class="task-cell">Store Organization (BOH & FOH)</td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-yes"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-no"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-pending"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_8" value="yes" class="checkbox-yes"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_8" value="no" class="checkbox-no"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_8" value="pending" class="checkbox-pending"></div></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><div class="date-cell"><input type="date" class="follow-up-date"><button class="same-above-btn" onclick="copyDateAbove(this)">Same as above</button></div></td>
@@ -868,9 +793,9 @@
                         <tr class="category-row">
                             <td>Guest Experience</td>
                             <td class="task-cell">Customer Service Observation (YOU RULE! / Crowns Offered)</td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-yes"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-no"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-pending"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_9" value="yes" class="checkbox-yes"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_9" value="no" class="checkbox-no"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_9" value="pending" class="checkbox-pending"></div></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><div class="date-cell"><input type="date" class="follow-up-date"><button class="same-above-btn" onclick="copyDateAbove(this)">Same as above</button></div></td>
@@ -878,9 +803,9 @@
                         <tr>
                             <td></td>
                             <td class="task-cell">OSAT – Top 3 Opportunities Reviewed</td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-yes"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-no"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-pending"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_10" value="yes" class="checkbox-yes"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_10" value="no" class="checkbox-no"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_10" value="pending" class="checkbox-pending"></div></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><div class="date-cell"><input type="date" class="follow-up-date"><button class="same-above-btn" onclick="copyDateAbove(this)">Same as above</button></div></td>
@@ -888,9 +813,9 @@
                         <tr class="category-row">
                             <td>Cash & Controls</td>
                             <td class="task-cell">Petty Cash Count Matches</td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-yes"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-no"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-pending"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_11" value="yes" class="checkbox-yes"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_11" value="no" class="checkbox-no"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_11" value="pending" class="checkbox-pending"></div></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><div class="date-cell"><input type="date" class="follow-up-date"><button class="same-above-btn" onclick="copyDateAbove(this)">Same as above</button></div></td>
@@ -898,9 +823,9 @@
                         <tr>
                             <td></td>
                             <td class="task-cell">Safe Drops Observed and Matching Totals</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_12" value="yes" class="checkbox-yes"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_12" value="no" class="checkbox-no"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_12" value="pending" class="checkbox-pending"></div></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><div class="date-cell"><input type="date" class="follow-up-date"><button class="same-above-btn" onclick="copyDateAbove(this)">Same as above</button></div></td>
@@ -908,9 +833,9 @@
                         <tr>
                             <td></td>
                             <td class="task-cell">Cash Over / Short Reviewed</td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-yes"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-no"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-pending"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_13" value="yes" class="checkbox-yes"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_13" value="no" class="checkbox-no"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_13" value="pending" class="checkbox-pending"></div></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><div class="date-cell"><input type="date" class="follow-up-date"><button class="same-above-btn" onclick="copyDateAbove(this)">Same as above</button></div></td>
@@ -918,9 +843,9 @@
                         <tr>
                             <td></td>
                             <td class="task-cell">Refunds / Deletes / Voids / Manager Meals Reviewed</td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-yes"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-no"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-pending"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_14" value="yes" class="checkbox-yes"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_14" value="no" class="checkbox-no"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_14" value="pending" class="checkbox-pending"></div></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><div class="date-cell"><input type="date" class="follow-up-date"><button class="same-above-btn" onclick="copyDateAbove(this)">Same as above</button></div></td>
@@ -928,9 +853,9 @@
                         <tr>
                             <td></td>
                             <td class="task-cell">All Cash Paid-Outs Match Invoices & Daily Paperwork</td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-yes"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-no"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-pending"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_15" value="yes" class="checkbox-yes"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_15" value="no" class="checkbox-no"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_15" value="pending" class="checkbox-pending"></div></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><div class="date-cell"><input type="date" class="follow-up-date"><button class="same-above-btn" onclick="copyDateAbove(this)">Same as above</button></div></td>
@@ -938,9 +863,9 @@
                         <tr class="category-row">
                             <td>Financial Performance</td>
                             <td class="task-cell">Sales vs. Plan</td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-yes"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-no"></div></td>
-                            <td></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_16" value="yes" class="checkbox-yes"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_16" value="no" class="checkbox-no"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_16" value="pending" class="checkbox-pending"></div></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><div class="date-cell"><input type="date" class="follow-up-date"><button class="same-above-btn" onclick="copyDateAbove(this)">Same as above</button></div></td>
@@ -948,9 +873,9 @@
                         <tr>
                             <td></td>
                             <td class="task-cell">Labor vs. Plan</td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-yes"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-no"></div></td>
-                            <td></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_17" value="yes" class="checkbox-yes"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_17" value="no" class="checkbox-no"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_17" value="pending" class="checkbox-pending"></div></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><div class="date-cell"><input type="date" class="follow-up-date"><button class="same-above-btn" onclick="copyDateAbove(this)">Same as above</button></div></td>
@@ -958,9 +883,9 @@
                         <tr>
                             <td></td>
                             <td class="task-cell">Weekly COGS vs. Ideal</td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-yes"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-no"></div></td>
-                            <td></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_18" value="yes" class="checkbox-yes"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_18" value="no" class="checkbox-no"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_18" value="pending" class="checkbox-pending"></div></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><div class="date-cell"><input type="date" class="follow-up-date"><button class="same-above-btn" onclick="copyDateAbove(this)">Same as above</button></div></td>
@@ -968,9 +893,9 @@
                         <tr class="category-row">
                             <td>Food Safety & Compliance</td>
                             <td class="task-cell">Food Safety Criticals Reviewed</td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-yes"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-no"></div></td>
-                            <td></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_19" value="yes" class="checkbox-yes"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_19" value="no" class="checkbox-no"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_19" value="pending" class="checkbox-pending"></div></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><div class="date-cell"><input type="date" class="follow-up-date"><button class="same-above-btn" onclick="copyDateAbove(this)">Same as above</button></div></td>
@@ -978,9 +903,9 @@
                         <tr>
                             <td></td>
                             <td class="task-cell">SOS Compliance (No Parking Cars)</td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-yes"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-no"></div></td>
-                            <td></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_20" value="yes" class="checkbox-yes"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_20" value="no" class="checkbox-no"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_20" value="pending" class="checkbox-pending"></div></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><div class="date-cell"><input type="date" class="follow-up-date"><button class="same-above-btn" onclick="copyDateAbove(this)">Same as above</button></div></td>
@@ -988,9 +913,9 @@
                         <tr>
                             <td></td>
                             <td class="task-cell">BK Log Completion</td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-yes"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-no"></div></td>
-                            <td></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_21" value="yes" class="checkbox-yes"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_21" value="no" class="checkbox-no"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_21" value="pending" class="checkbox-pending"></div></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><div class="date-cell"><input type="date" class="follow-up-date"><button class="same-above-btn" onclick="copyDateAbove(this)">Same as above</button></div></td>
@@ -998,9 +923,9 @@
                         <tr>
                             <td></td>
                             <td class="task-cell">CHEF Audit Grades Reviewed</td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-yes"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-no"></div></td>
-                            <td></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_22" value="yes" class="checkbox-yes"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_22" value="no" class="checkbox-no"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_22" value="pending" class="checkbox-pending"></div></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><div class="date-cell"><input type="date" class="follow-up-date"><button class="same-above-btn" onclick="copyDateAbove(this)">Same as above</button></div></td>
@@ -1008,9 +933,9 @@
                         <tr class="category-row">
                             <td>Systems & Execution</td>
                             <td class="task-cell">King Board Updated</td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-yes"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-no"></div></td>
-                            <td></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_23" value="yes" class="checkbox-yes"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_23" value="no" class="checkbox-no"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_23" value="pending" class="checkbox-pending"></div></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><div class="date-cell"><input type="date" class="follow-up-date"><button class="same-above-btn" onclick="copyDateAbove(this)">Same as above</button></div></td>
@@ -1018,9 +943,9 @@
                         <tr>
                             <td></td>
                             <td class="task-cell">Command Center Accuracy</td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-yes"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-no"></div></td>
-                            <td></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_24" value="yes" class="checkbox-yes"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_24" value="no" class="checkbox-no"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_24" value="pending" class="checkbox-pending"></div></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><div class="date-cell"><input type="date" class="follow-up-date"><button class="same-above-btn" onclick="copyDateAbove(this)">Same as above</button></div></td>
@@ -1028,9 +953,9 @@
                         <tr>
                             <td></td>
                             <td class="task-cell">All Equipment in Working Condition</td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-yes"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-no"></div></td>
-                            <td></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_25" value="yes" class="checkbox-yes"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_25" value="no" class="checkbox-no"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_25" value="pending" class="checkbox-pending"></div></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><div class="date-cell"><input type="date" class="follow-up-date"><button class="same-above-btn" onclick="copyDateAbove(this)">Same as above</button></div></td>
@@ -1038,9 +963,9 @@
                         <tr class="category-row">
                             <td>Facilities & Controls</td>
                             <td class="task-cell">Restrooms Clean & Logs Complete</td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-yes"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-no"></div></td>
-                            <td></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_26" value="yes" class="checkbox-yes"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_26" value="no" class="checkbox-no"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_26" value="pending" class="checkbox-pending"></div></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><div class="date-cell"><input type="date" class="follow-up-date"><button class="same-above-btn" onclick="copyDateAbove(this)">Same as above</button></div></td>
@@ -1048,9 +973,9 @@
                         <tr>
                             <td></td>
                             <td class="task-cell">Playground Clean & Logs Complete</td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-yes"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-no"></div></td>
-                            <td></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_27" value="yes" class="checkbox-yes"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_27" value="no" class="checkbox-no"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_27" value="pending" class="checkbox-pending"></div></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><div class="date-cell"><input type="date" class="follow-up-date"><button class="same-above-btn" onclick="copyDateAbove(this)">Same as above</button></div></td>
@@ -1058,9 +983,9 @@
                         <tr>
                             <td></td>
                             <td class="task-cell">Petty Cash Count Matches</td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-yes"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-no"></div></td>
-                            <td></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_28" value="yes" class="checkbox-yes"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_28" value="no" class="checkbox-no"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_28" value="pending" class="checkbox-pending"></div></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><div class="date-cell"><input type="date" class="follow-up-date"><button class="same-above-btn" onclick="copyDateAbove(this)">Same as above</button></div></td>
@@ -1068,9 +993,9 @@
                         <tr class="category-row">
                             <td>Leadership Follow-Up</td>
                             <td class="task-cell">ACR Complaints Reviewed with GM</td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-yes"></div></td>
-                            <td><div class="checkbox-group"><input type="checkbox" class="checkbox-no"></div></td>
-                            <td></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_29" value="yes" class="checkbox-yes"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_29" value="no" class="checkbox-no"></div></td>
+                            <td><div class="checkbox-group"><input type="radio" name="response_ff_29" value="pending" class="checkbox-pending"></div></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><textarea rows="1"></textarea></td>
                             <td><div class="date-cell"><input type="date" class="follow-up-date"><button class="same-above-btn" onclick="copyDateAbove(this)">Same as above</button></div></td>
@@ -1195,12 +1120,16 @@
                 rowData.push(cells[0].textContent.trim());
                 // Task
                 rowData.push(cells[1].textContent.trim());
-                // Yes checkbox
-                rowData.push(cells[2].querySelector('input[type="checkbox"]')?.checked ? 'Yes' : '');
-                // No checkbox
-                rowData.push(cells[3].querySelector('input[type="checkbox"]')?.checked ? 'No' : '');
-                // Pending checkbox
-                rowData.push(cells[4].querySelector('input[type="checkbox"]')?.checked ? 'Pending' : '');
+                
+                // Check radio buttons for Yes/No/Pending
+                const yesRadio = cells[2].querySelector('input[type="radio"]');
+                const noRadio = cells[3].querySelector('input[type="radio"]');
+                const pendingRadio = cells[4].querySelector('input[type="radio"]');
+                
+                rowData.push(yesRadio && yesRadio.checked ? 'Yes' : '');
+                rowData.push(noRadio && noRadio.checked ? 'No' : '');
+                rowData.push(pendingRadio && pendingRadio.checked ? 'Pending' : '');
+                
                 // AC Comments
                 rowData.push(cells[5].querySelector('textarea')?.value || '');
                 // Action Items
