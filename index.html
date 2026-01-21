@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dossani Paradise - AC Store Inspection</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #e0f2fe 0%, #ffffff 50%, #cffafe 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Fixed Header Section */
+        .header-section {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: white;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content {
+            padding: 2rem;
+        }
+
+        .company-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .title-section h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #2563eb, #06b6d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.25rem;
+        }
+
+        .company-name {
+            font-size: 1.125rem;
+            color: #64748b;
+            font-weight: 600;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.875rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(to right, #2563eb, #06b6d4);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(to right, #dc2626, #ef4444);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            box-shadow: 0 10px 15px -3px rgba(220, 38, 38, 0.3);
+            transform: translateY(-1px);
+        }
+
+        .progress-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+            color: #64748b;
+        }
+
+        .progress-percent {
+            font-weight: 600;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 12px;
+            background: #e5e7eb;
+            border-radius: 9999px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(to right, #2563eb, #06b6d4);
+            border-radius: 9999px;
+            transition: width 0.3s;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .input-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #374151;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: #2563eb;
+        }
+
+        /* Scrollable Content Section */
+        .content-section {
+            padding: 2rem;
+        }
+
+        .category-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .category-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid #dbeafe;
+        }
+
+        .inspection-item {
+            border: 2px solid #f3f4f6;
+            border-radius: 12px;
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+            transition: border-color 0.2s;
+        }
+
+        .inspection-item:hover {
+            border-color: #dbeafe;
+        }
+
+        .item-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        @media (min-width: 1024px) {
+            .item-content {
+                grid-template-columns: 2fr 1.5fr 2fr;
+                align-items: start;
+            }
+        }
+
+        .item-text {
+            color: #1f2937;
+            font-weight: 500;
+        }
+
+        .status-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .status-btn {
+            flex: 1;
+            padding: 0.5rem 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            background: white;
+            color: #9ca3af;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.875rem;
+        }
+
+        .status-btn:hover {
+            border-color: #d1d5db;
+        }
+
+        .status-btn.active-pass {
+            background: #dcfce7;
+            color: #166534;
+            border-color: #86efac;
+        }
+
+        .status-btn.active-fail {
+            background: #fee2e2;
+            color: #991b1b;
+            border-color: #fca5a5;
+        }
+
+        .status-btn.active-na {
+            background: #f3f4f6;
+            color: #374151;
+            border-color: #d1d5db;
+        }
+
+        .notes-input {
+            width: 100%;
+            padding: 0.5rem 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            transition: border-color 0.2s;
+        }
+
+        .notes-input:focus {
+            outline: none;
+            border-color: #2563eb;
+        }
+
+        .icon {
+            width: 16px;
+            height: 16px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Fixed Header Section -->
+        <div class="header-section">
+            <div class="header-content">
+                <div class="company-header">
+                    <div class="title-section">
+                        <h1>AC Store Inspection</h1>
+                        <div class="company-name">Dossani Paradise</div>
+                    </div>
+                    <div class="button-group">
+                        <button class="btn btn-primary" onclick="exportToExcel()">
+                            <svg class="icon" viewBox="0 0 24 24">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7 10 12 15 17 10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                            Export to Excel
+                        </button>
+                        <button class="btn btn-secondary" onclick="exportToPDF()">
+                            <svg class="icon" viewBox="0 0 24 24">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7 10 12 15 17 10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                            Save as PDF
+                        </button>
+                    </div>
+                </div>
+
+                <div class="progress-section">
+                    <div class="progress-header">
+                        <span>Inspection Progress</span>
+                        <span class="progress-percent" id="progressPercent">0%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                    </div>
+                </div>
+
+                <div class="info-grid">
+                    <div class="input-group">
+                        <label class="input-label">
+                            <svg class="icon" viewBox="0 0 24 24" style="color: #2563eb;">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                <line x1="16" y1="2" x2="16" y2="6"></line>
+                                <line x1="8" y1="2" x2="8" y2="6"></line>
+                                <line x1="3" y1="10" x2="21" y2="10"></line>
+                            </svg>
+                            Inspection Date
+                        </label>
+                        <input type="date" class="input-field" id="inspectionDate">
+                    </div>
+                    <div class="input-group">
+                        <label class="input-label">
+                            <svg class="icon" viewBox="0 0 24 24" style="color: #2563eb;">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                <circle cx="12" cy="10" r="3"></circle>
+                            </svg>
+                            Store Location
+                        </label>
+                        <input type="text" class="input-field" id="storeLocation" placeholder="Enter store location">
+                    </div>
+                    <div class="input-group">
+                        <label class="input-label">
+                            <svg class="icon" viewBox="0 0 24 24" style="color: #2563eb;">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                            Inspector Name
+                        </label>
+                        <input type="text" class="input-field" id="inspectorName" placeholder="Enter inspector name">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scrollable Content Section -->
+        <div class="content-section" id="inspectionContent">
+            <!-- Categories will be generated here -->
+        </div>
+    </div>
+
+    <script>
+        const inspectionData = {
+            'Store Exterior': [
+                'Signage clean and properly lit',
+                'Entrance clear and inviting',
+                'Windows clean and displays attractive',
+                'Parking area clean and well-maintained'
+            ],
+            'Interior Cleanliness': [
+                'Floors clean and free of debris',
+                'Shelves dust-free and organized',
+                'Restrooms clean and stocked',
+                'Break room clean and organized'
+            ],
+            'AC Units Display': [
+                'Display units clean and functioning',
+                'Price tags visible and accurate',
+                'Product information cards present',
+                'Energy efficiency labels displayed'
+            ],
+            'Inventory Management': [
+                'Stock levels appropriate',
+                'Inventory organized by model/size',
+                'No damaged units on display',
+                'Warehouse area organized'
+            ],
+            'Staff Performance': [
+                'Staff in proper uniform',
+                'Staff knowledgeable about products',
+                'Customer service responsive',
+                'Name tags visible'
+            ],
+            'Safety & Compliance': [
+                'Fire extinguishers accessible',
+                'Emergency exits clearly marked',
+                'Safety signage posted',
+                'Electrical cords properly managed'
+            ]
+        };
+
+        let itemStates = {};
+
+        function initializePage() {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('inspectionDate').value = today;
+            
+            renderInspectionItems();
+            updateProgress();
+        }
+
+        function renderInspectionItems() {
+            const contentSection = document.getElementById('inspectionContent');
+            contentSection.innerHTML = '';
+
+            Object.entries(inspectionData).forEach(([category, items]) => {
+                const categoryCard = document.createElement('div');
+                categoryCard.className = 'category-card';
+                
+                let itemsHTML = '';
+                items.forEach((item, index) => {
+                    const itemId = `${category}-${index}`;
+                    itemStates[itemId] = itemStates[itemId] || { status: '', notes: '' };
+                    
+                    itemsHTML += `
+                        <div class="inspection-item">
+                            <div class="item-content">
+                                <div class="item-text">${item}</div>
+                                <div class="status-buttons">
+                                    <button class="status-btn ${itemStates[itemId].status === 'Pass' ? 'active-pass' : ''}" 
+                                            onclick="setStatus('${itemId}', 'Pass')">Pass</button>
+                                    <button class="status-btn ${itemStates[itemId].status === 'Fail' ? 'active-fail' : ''}" 
+                                            onclick="setStatus('${itemId}', 'Fail')">Fail</button>
+                                    <button class="status-btn ${itemStates[itemId].status === 'N/A' ? 'active-na' : ''}" 
+                                            onclick="setStatus('${itemId}', 'N/A')">N/A</button>
+                                </div>
+                                <input type="text" class="notes-input" placeholder="Add notes..." 
+                                       value="${itemStates[itemId].notes}"
+                                       onchange="setNotes('${itemId}', this.value)">
+                            </div>
+                        </div>
+                    `;
+                });
+
+                categoryCard.innerHTML = `
+                    <h2 class="category-title">${category}</h2>
+                    ${itemsHTML}
+                `;
+                
+                contentSection.appendChild(categoryCard);
+            });
+        }
+
+        function setStatus(itemId, status) {
+            itemStates[itemId].status = status;
+            renderInspectionItems();
+            updateProgress();
+        }
+
+        function setNotes(itemId, notes) {
+            itemStates[itemId].notes = notes;
+        }
+
+        function updateProgress() {
+            const totalItems = Object.keys(itemStates).length;
+            const completedItems = Object.values(itemStates).filter(item => item.status).length;
+            const percentage = totalItems > 0 ? Math.round((completedItems / totalItems) * 100) : 0;
+            
+            document.getElementById('progressPercent').textContent = `${percentage}%`;
+            document.getElementById('progressFill').style.width = `${percentage}%`;
+        }
+
+        function exportToExcel() {
+            const date = document.getElementById('inspectionDate').value;
+            const store = document.getElementById('storeLocation').value;
+            const inspector = document.getElementById('inspectorName').value;
+
+            const data = [
+                ['DOSSANI PARADISE - AC STORE INSPECTION CHECKLIST'],
+                [''],
+                ['Date:', date],
+                ['Store Location:', store],
+                ['Inspector:', inspector],
+                [''],
+                ['Category', 'Inspection Item', 'Status', 'Notes']
+            ];
+
+            Object.entries(inspectionData).forEach(([category, items]) => {
+                items.forEach((item, index) => {
+                    const itemId = `${category}-${index}`;
+                    const state = itemStates[itemId] || { status: 'Not Checked', notes: '' };
+                    data.push([
+                        index === 0 ? category : '',
+                        item,
+                        state.status || 'Not Checked',
+                        state.notes
+                    ]);
+                });
+                data.push(['', '', '', '']);
+            });
+
+            const ws = XLSX.utils.aoa_to_sheet(data);
+            ws['!cols'] = [
+                { wch: 20 },
+                { wch: 40 },
+                { wch: 15 },
+                { wch: 50 }
+            ];
+
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, 'Inspection');
+            XLSX.writeFile(wb, `AC_Inspection_${date}.xlsx`);
+        }
+
+        function exportToPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            const date = document.getElementById('inspectionDate').value;
+            const store = document.getElementById('storeLocation').value;
+            const inspector = document.getElementById('inspectorName').value;
+
+            let yPos = 20;
+            
+            doc.setFontSize(16);
+            doc.setFont(undefined, 'bold');
+            doc.text('DOSSANI PARADISE', 105, yPos, { align: 'center' });
+            yPos += 7;
+            doc.setFontSize(14);
+            doc.text('AC Store Inspection Checklist', 105, yPos, { align: 'center' });
+            yPos += 15;
+            
+            doc.setFontSize(10);
+            doc.setFont(undefined, 'normal');
+            doc.text(`Date: ${date}`, 20, yPos);
+            yPos += 7;
+            doc.text(`Store Location: ${store}`, 20, yPos);
+            yPos += 7;
+            doc.text(`Inspector: ${inspector}`, 20, yPos);
+            yPos += 12;
+
+            doc.setFontSize(9);
+            Object.entries(inspectionData).forEach(([category, items]) => {
+                if (yPos > 250) {
+                    doc.addPage();
+                    yPos = 20;
+                }
+                
+                doc.setFont(undefined, 'bold');
+                doc.text(category, 20, yPos);
+                yPos += 7;
+                
+                doc.setFont(undefined, 'normal');
+                items.forEach((item, index) => {
+                    if (yPos > 270) {
+                        doc.addPage();
+                        yPos = 20;
+                    }
+                    
+                    const itemId = `${category}-${index}`;
+                    const state = itemStates[itemId] || { status: 'Not Checked', notes: '' };
+                    
+                    const text = `• ${item}: ${state.status || 'Not Checked'}`;
+                    doc.text(text, 25, yPos);
+                    yPos += 5;
+                    
+                    if (state.notes) {
+                        doc.setFontSize(8);
+                        doc.text(`  Notes: ${state.notes}`, 25, yPos);
+                        doc.setFontSize(9);
+                        yPos += 5;
+                    }
+                });
+                yPos += 5;
+            });
+
+            doc.save(`AC_Inspection_${date}.pdf`);
+        }
+
+        initializePage();
+    </script>
+</body>
+</html>
