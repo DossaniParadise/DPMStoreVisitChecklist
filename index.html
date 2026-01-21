@@ -1,589 +1,424 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dossani Paradise - AC Store Inspection</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: linear-gradient(135deg, #e0f2fe 0%, #ffffff 50%, #cffafe 100%);
-            min-height: 100vh;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        /* Fixed Header Section */
-        .header-section {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            background: white;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        }
-
-        .header-content {
-            padding: 2rem;
-        }
-
-        .company-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .title-section h1 {
-            font-size: 2rem;
-            font-weight: 800;
-            background: linear-gradient(to right, #2563eb, #06b6d4);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 0.25rem;
-        }
-
-        .company-name {
-            font-size: 1.125rem;
-            color: #64748b;
-            font-weight: 600;
-        }
-
-        .button-group {
-            display: flex;
-            gap: 0.75rem;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.75rem 1.5rem;
-            border: none;
-            border-radius: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-size: 0.875rem;
-        }
-
-        .btn-primary {
-            background: linear-gradient(to right, #2563eb, #06b6d4);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
-            transform: translateY(-1px);
-        }
-
-        .btn-secondary {
-            background: linear-gradient(to right, #dc2626, #ef4444);
-            color: white;
-        }
-
-        .btn-secondary:hover {
-            box-shadow: 0 10px 15px -3px rgba(220, 38, 38, 0.3);
-            transform: translateY(-1px);
-        }
-
-        .progress-section {
-            margin-bottom: 1.5rem;
-        }
-
-        .progress-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 0.5rem;
-            font-size: 0.875rem;
-            color: #64748b;
-        }
-
-        .progress-percent {
-            font-weight: 600;
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 12px;
-            background: #e5e7eb;
-            border-radius: 9999px;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(to right, #2563eb, #06b6d4);
-            border-radius: 9999px;
-            transition: width 0.3s;
-        }
-
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1rem;
-        }
-
-        .input-group {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .input-label {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.875rem;
-            font-weight: 500;
-            color: #374151;
-        }
-
-        .input-field {
-            width: 100%;
-            padding: 0.75rem 1rem;
-            border: 2px solid #e5e7eb;
-            border-radius: 12px;
-            font-size: 1rem;
-            transition: border-color 0.2s;
-        }
-
-        .input-field:focus {
-            outline: none;
-            border-color: #2563eb;
-        }
-
-        /* Scrollable Content Section */
-        .content-section {
-            padding: 2rem;
-        }
-
-        .category-card {
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            padding: 2rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .category-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #1f2937;
-            margin-bottom: 1.5rem;
-            padding-bottom: 0.75rem;
-            border-bottom: 2px solid #dbeafe;
-        }
-
-        .inspection-item {
-            border: 2px solid #f3f4f6;
-            border-radius: 12px;
-            padding: 1.25rem;
-            margin-bottom: 1rem;
-            transition: border-color 0.2s;
-        }
-
-        .inspection-item:hover {
-            border-color: #dbeafe;
-        }
-
-        .item-content {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 1rem;
-        }
-
-        @media (min-width: 1024px) {
-            .item-content {
-                grid-template-columns: 2fr 1.5fr 2fr;
-                align-items: start;
-            }
-        }
-
-        .item-text {
-            color: #1f2937;
-            font-weight: 500;
-        }
-
-        .status-buttons {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .status-btn {
-            flex: 1;
-            padding: 0.5rem 1rem;
-            border: 2px solid #e5e7eb;
-            border-radius: 8px;
-            background: white;
-            color: #9ca3af;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-size: 0.875rem;
-        }
-
-        .status-btn:hover {
-            border-color: #d1d5db;
-        }
-
-        .status-btn.active-pass {
-            background: #dcfce7;
-            color: #166534;
-            border-color: #86efac;
-        }
-
-        .status-btn.active-fail {
-            background: #fee2e2;
-            color: #991b1b;
-            border-color: #fca5a5;
-        }
-
-        .status-btn.active-na {
-            background: #f3f4f6;
-            color: #374151;
-            border-color: #d1d5db;
-        }
-
-        .notes-input {
-            width: 100%;
-            padding: 0.5rem 1rem;
-            border: 2px solid #e5e7eb;
-            border-radius: 8px;
-            font-size: 0.875rem;
-            transition: border-color 0.2s;
-        }
-
-        .notes-input:focus {
-            outline: none;
-            border-color: #2563eb;
-        }
-
-        .icon {
-            width: 16px;
-            height: 16px;
-            stroke: currentColor;
-            fill: none;
-            stroke-width: 2;
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dossani Paradise – AC Store Inspection</title>
+  <meta name="color-scheme" content="light dark" />
+  <style>
+    :root{
+      --bg: #0b1220;
+      --card: #111827;
+      --muted: #9aa4b2;
+      --text: #e5e7eb;
+      --accent: #60a5fa;
+      --accent-2:#34d399;
+      --warn:#f59e0b;
+      --danger:#ef4444;
+      --border:#1f2937;
+      --chip:#374151;
+      --chip-on:#10b981;
+      --chip-pend:#f59e0b;
+      --chip-off:#6b7280;
+      --pill:#0ea5e9;
+      --shadow: 0 10px 25px rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:linear-gradient(135deg,#0b1220 0%,#0f172a 100%);color:var(--text);font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif}
+    a{color:var(--accent)}
+    header{
+      position:sticky;top:0;z-index:50;
+      background:rgba(11,18,32,.75);backdrop-filter: blur(8px);
+      border-bottom:1px solid var(--border)
+    }
+    .wrap{max-width:1100px;margin:0 auto;padding:16px}
+    .brand{
+      display:flex;align-items:center;gap:12px;font-weight:700;font-size:18px;letter-spacing:.2px
+    }
+    .brand .dot{width:10px;height:10px;border-radius:50%;background:var(--accent)}
+    .toolbar{display:flex;flex-wrap:wrap;gap:8px;margin-left:auto}
+    .toolbar button,.toolbar label{
+      background:#0f172a;border:1px solid var(--border);color:var(--text);
+      padding:8px 12px;border-radius:8px;cursor:pointer;box-shadow:var(--shadow);
+      display:inline-flex;align-items:center;gap:8px
+    }
+    .toolbar input[type="file"]{display:none}
+    main .wrap{display:grid;grid-template-columns:280px 1fr;gap:18px}
+    .panel{
+      background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;box-shadow:var(--shadow)
+    }
+    .h{margin:0 0 8px 0;font-size:20px}
+    .sub{color:var(--muted);font-size:13px}
+    .inputs{display:grid;gap:10px;margin-top:10px}
+    .inputs input{
+      width:100%;padding:10px;border-radius:10px;border:1px solid var(--border);
+      background:#0f172a;color:var(--text)
+    }
+    .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+    .tab{
+      padding:8px 12px;border-radius:999px;border:1px solid var(--border);cursor:pointer;
+      background:#0f172a;color:var(--text);font-weight:600
+    }
+    .tab[aria-selected="true"]{background:var(--pill);border-color:transparent}
+    .progress{
+      display:flex;align-items:center;gap:12px;margin-top:12px
+    }
+    .bar{flex:1;height:10px;background:#0f172a;border-radius:99px;overflow:hidden;border:1px solid var(--border)}
+    .bar > span{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent-2));width:0%}
+    .pct{min-width:48px;text-align:right;font-variant-numeric:tabular-nums}
+    .grid{display:grid;gap:16px}
+    .cat{border:1px solid var(--border);border-radius:12px;overflow:hidden}
+    .cat > h3{margin:0;padding:12px 14px;background:#0f172a;border-bottom:1px solid var(--border);font-size:16px}
+    .task{display:grid;grid-template-columns: 1.2fr 200px 1fr 1fr 160px;gap:10px;align-items:start;padding:12px 14px;border-top:1px dashed #1f2937}
+    .task:first-of-type{border-top:none}
+    .task-title{font-weight:600}
+    .choices{display:flex;gap:6px;flex-wrap:wrap}
+    .chip{
+      padding:6px 10px;border-radius:999px;background:var(--chip);cursor:pointer;border:1px solid var(--border);
+      user-select:none;font-size:12px;display:inline-flex;align-items:center;gap:6px
+    }
+    .chip[data-val="Yes"][aria-pressed="true"]{background:var(--chip-on)}
+    .chip[data-val="Pending"][aria-pressed="true"]{background:var(--chip-pend)}
+    .chip[data-val="No"][aria-pressed="true"]{background:var(--danger)}
+    .task textarea,.task input[type="date"]{
+      width:100%;background:#0f172a;border:1px solid var(--border);color:var(--text);border-radius:8px;padding:8px;min-height:38px
+    }
+    .section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:12px 0}
+    .muted{color:var(--muted)}
+    .footer{margin:24px 0 60px;color:var(--muted);font-size:12px}
+    @media (max-width: 980px){
+      main .wrap{grid-template-columns:1fr}
+      .task{grid-template-columns:1fr;gap:8px}
+      .pct{min-width:auto}
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Fixed Header Section -->
-        <div class="header-section">
-            <div class="header-content">
-                <div class="company-header">
-                    <div class="title-section">
-                        <h1>AC Store Inspection</h1>
-                        <div class="company-name">Dossani Paradise</div>
-                    </div>
-                    <div class="button-group">
-                        <button class="btn btn-primary" onclick="exportToExcel()">
-                            <svg class="icon" viewBox="0 0 24 24">
-                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                                <polyline points="7 10 12 15 17 10"></polyline>
-                                <line x1="12" y1="15" x2="12" y2="3"></line>
-                            </svg>
-                            Export to Excel
-                        </button>
-                        <button class="btn btn-secondary" onclick="exportToPDF()">
-                            <svg class="icon" viewBox="0 0 24 24">
-                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                                <polyline points="7 10 12 15 17 10"></polyline>
-                                <line x1="12" y1="15" x2="12" y2="3"></line>
-                            </svg>
-                            Save as PDF
-                        </button>
-                    </div>
-                </div>
-
-                <div class="progress-section">
-                    <div class="progress-header">
-                        <span>Inspection Progress</span>
-                        <span class="progress-percent" id="progressPercent">0%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" id="progressFill" style="width: 0%"></div>
-                    </div>
-                </div>
-
-                <div class="info-grid">
-                    <div class="input-group">
-                        <label class="input-label">
-                            <svg class="icon" viewBox="0 0 24 24" style="color: #2563eb;">
-                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                                <line x1="16" y1="2" x2="16" y2="6"></line>
-                                <line x1="8" y1="2" x2="8" y2="6"></line>
-                                <line x1="3" y1="10" x2="21" y2="10"></line>
-                            </svg>
-                            Inspection Date
-                        </label>
-                        <input type="date" class="input-field" id="inspectionDate">
-                    </div>
-                    <div class="input-group">
-                        <label class="input-label">
-                            <svg class="icon" viewBox="0 0 24 24" style="color: #2563eb;">
-                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                                <circle cx="12" cy="10" r="3"></circle>
-                            </svg>
-                            Store Location
-                        </label>
-                        <input type="text" class="input-field" id="storeLocation" placeholder="Enter store location">
-                    </div>
-                    <div class="input-group">
-                        <label class="input-label">
-                            <svg class="icon" viewBox="0 0 24 24" style="color: #2563eb;">
-                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                                <circle cx="12" cy="7" r="4"></circle>
-                            </svg>
-                            Inspector Name
-                        </label>
-                        <input type="text" class="input-field" id="inspectorName" placeholder="Enter inspector name">
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Scrollable Content Section -->
-        <div class="content-section" id="inspectionContent">
-            <!-- Categories will be generated here -->
-        </div>
+<header>
+  <div class="wrap" style="display:flex;align-items:center;gap:16px;">
+    <div class="brand"><span class="dot"></span> Dossani Paradise — AC Store Inspection</div>
+    <div class="toolbar">
+      <button id="btnExport" title="Export current state to a JSON file">💾 Export</button>
+      <label for="fileImport" title="Import previously exported JSON">📂 Import
+        <input id="fileImport" type="file" accept="application/json" />
+      </label>
+      <button id="btnPrint" title="Print or Save to PDF">🖨️ Save as PDF</button>
     </div>
+  </div>
+</header>
 
-    <script>
-        const inspectionData = {
-            'Store Exterior': [
-                'Signage clean and properly lit',
-                'Entrance clear and inviting',
-                'Windows clean and displays attractive',
-                'Parking area clean and well-maintained'
-            ],
-            'Interior Cleanliness': [
-                'Floors clean and free of debris',
-                'Shelves dust-free and organized',
-                'Restrooms clean and stocked',
-                'Break room clean and organized'
-            ],
-            'AC Units Display': [
-                'Display units clean and functioning',
-                'Price tags visible and accurate',
-                'Product information cards present',
-                'Energy efficiency labels displayed'
-            ],
-            'Inventory Management': [
-                'Stock levels appropriate',
-                'Inventory organized by model/size',
-                'No damaged units on display',
-                'Warehouse area organized'
-            ],
-            'Staff Performance': [
-                'Staff in proper uniform',
-                'Staff knowledgeable about products',
-                'Customer service responsive',
-                'Name tags visible'
-            ],
-            'Safety & Compliance': [
-                'Fire extinguishers accessible',
-                'Emergency exits clearly marked',
-                'Safety signage posted',
-                'Electrical cords properly managed'
-            ]
-        };
+<main>
+  <div class="wrap">
+    <!-- Left: Meta & Tabs -->
+    <aside class="panel">
+      <h2 class="h">AC Store Inspection</h2>
+      <div class="sub">Fill out the inspection details and complete tasks for each tab.</div>
+      <div class="inputs">
+        <input id="inpDate" type="date" />
+        <input id="inpStore" type="text" placeholder="Store Location" />
+        <input id="inpInspector" type="text" placeholder="Inspector Name" />
+      </div>
 
-        let itemStates = {};
+      <div class="section-head">
+        <div class="sub">Sheets</div>
+      </div>
+      <div class="tabs" id="tabs"></div>
 
-        function initializePage() {
-            const today = new Date().toISOString().split('T')[0];
-            document.getElementById('inspectionDate').value = today;
-            
-            renderInspectionItems();
-            updateProgress();
-        }
+      <div class="section-head">
+        <div class="sub">Inspection Progress</div>
+        <div class="pct" id="pct">0%</div>
+      </div>
+      <div class="progress">
+        <div class="bar"><span id="bar"></span></div>
+      </div>
+    </aside>
 
-        function renderInspectionItems() {
-            const contentSection = document.getElementById('inspectionContent');
-            contentSection.innerHTML = '';
+    <!-- Right: Checklist -->
+    <section class="panel">
+      <div class="section-head">
+        <div>
+          <h3 id="sheetTitle" style="margin:0;font-size:18px">Loading…</h3>
+          <div class="muted" id="sheetSubtitle">Select a sheet to begin.</div>
+        </div>
+      </div>
+      <div id="grid" class="grid" aria-live="polite"></div>
+      <div class="footer">Tip: use <strong>Export</strong> to save progress locally and <strong>Import</strong> to resume later.</div>
+    </section>
+  </div>
+</main>
 
-            Object.entries(inspectionData).forEach(([category, items]) => {
-                const categoryCard = document.createElement('div');
-                categoryCard.className = 'category-card';
-                
-                let itemsHTML = '';
-                items.forEach((item, index) => {
-                    const itemId = `${category}-${index}`;
-                    itemStates[itemId] = itemStates[itemId] || { status: '', notes: '' };
-                    
-                    itemsHTML += `
-                        <div class="inspection-item">
-                            <div class="item-content">
-                                <div class="item-text">${item}</div>
-                                <div class="status-buttons">
-                                    <button class="status-btn ${itemStates[itemId].status === 'Pass' ? 'active-pass' : ''}" 
-                                            onclick="setStatus('${itemId}', 'Pass')">Pass</button>
-                                    <button class="status-btn ${itemStates[itemId].status === 'Fail' ? 'active-fail' : ''}" 
-                                            onclick="setStatus('${itemId}', 'Fail')">Fail</button>
-                                    <button class="status-btn ${itemStates[itemId].status === 'N/A' ? 'active-na' : ''}" 
-                                            onclick="setStatus('${itemId}', 'N/A')">N/A</button>
-                                </div>
-                                <input type="text" class="notes-input" placeholder="Add notes..." 
-                                       value="${itemStates[itemId].notes}"
-                                       onchange="setNotes('${itemId}', this.value)">
-                            </div>
-                        </div>
-                    `;
-                });
+<script>
+/**
+ * ===========================================
+ * Data model (from your spreadsheet)
+ * ===========================================
+ * Each sheet has categories with tasks. For every task we keep:
+ *  - status: "Yes" | "No" | "Pending" | null
+ *  - comment: string
+ *  - action: string
+ *  - followUp: yyyy-mm-dd | ""
+ */
+const SHEETS = [
+  {
+    key: "CS",
+    title: "DPM CS Store Visit Checklist",
+    categories: {
+      "People & Scheduling": [
+        "GM Schedule Reviewed",
+        "Employee Schedules Reviewed",
+        "Employee Turnover Ratios Reviewed",
+      ],
+      "Operations & Standards": [
+        "Exterior Cleanliness",
+        "Interior Cleanliness",
+        "Fuel Area Cleanliness",
+        "Pump Maintenance and Cleanliness",
+        "Uniform Policy Compliance",
+        "Store Shift Walk Completed",
+        "Restrooms Clean & Logs Complete",
+      ],
+      "Customer Experience": [
+        "Customer Service Observation (“Welcome to Paradise”)",
+        "Upselling Observed",
+      ],
+      "Cash & Controls": [
+        "Petty Cash Count Matches",
+        "Safe Drops Observed and Matching Totals",
+        "Cash Over / Short Reviewed",
+        "Refunds / Deletes / Voids / Manager Meals Reviewed",
+        "All Cash Paid-Outs Match Invoices & Daily Paperwork",
+      ],
+      "Financial Performance": [
+        "Inside Sales vs Plan Reviewed",
+        "Fuel Gallons Sales vs Plan Reviewed",
+      ],
+      "Fuel & Compliance": [
+        "ATG Fuel Reading Printed & Entered in CSPro",
+        "Leak Test Printed & Uploaded in Bitrix",
+        "Daily Fuel Prices Email Sent",
+      ],
+      "Accounts & Audit": [
+        "Charge Customer Deposits Verified",
+        "Audit Charge Customer Sales & Collections (CSPro)",
+      ],
+    },
+  },
+  {
+    key: "FF",
+    title: "DPM FF Store Visit Checklist",
+    categories: {
+      "People & Scheduling": [
+        "GM Schedule Reviewed",
+        "Employee Schedules Reviewed",
+        "Employee Turnover Ratios Reviewed",
+      ],
+      "Cleanliness & Operations Standards": [
+        "Exterior Cleanliness",
+        "Interior Cleanliness",
+        "Preventatie Maintenance Checklists Completed",
+        "POP & Menu Boards Accurate and Current",
+        "Uniform Policy Compliance",
+        "Store Organization (BOH & FOH)",
+      ],
+      "Guest Experience": [
+        "Customer Service Observation (YOU RULE! / Crowns Offered)",
+        "OSAT – Top 3 Opportunities Reviewed",
+      ],
+      "Cash & Controls": [
+        "Petty Cash Count Matches",
+        "Safe Drops Observed and Matching Totals",
+        "Cash Over / Short Reviewed",
+        "Refunds / Deletes / Voids / Manager Meals Reviewed",
+        "All Cash Paid-Outs Match Invoices & Daily Paperwork",
+      ],
+      "Financial Performance": [
+        "Sales vs. Plan",
+        "Labor vs. Plan",
+        "Weekly COGS vs. Ideal",
+      ],
+      "Food Safety & Compliance": [
+        "Food Safety Criticals Reviewed",
+        "SOS Compliance (No Parking Cars)",
+        "BK Log Completion",
+        "CHEF Audit Grades Reviewed",
+      ],
+      "Systems & Execution": [
+        "King Board Updated",
+        "Command Center Accuracy",
+        "All Equipment in Working Condition",
+      ],
+      "Facilities & Controls": [
+        "Restrooms Clean & Logs Complete",
+        "Playground Clean & Logs Complete",
+        "Petty Cash Count Matches",
+      ],
+      "Leadership Follow-Up": [
+        "ACR Complaints Reviewed with GM",
+      ],
+    },
+  },
+  {
+    key: "FFOld",
+    title: "Store Visit Checklist",
+    categories: {
+      "People & Scheduling": [
+        "GM Schedule Reviewed",
+        "Employee Schedules Reviewed",
+        "Employee Turnover Ratios Reviewed",
+      ],
+      "Cleanliness & Brand Standards": [
+        "Overall Restaurant Cleanliness",
+        "Cleanliness vs. Cleaning Charts",
+        "POP & Menu Boards Accurate and Current",
+        "Uniform Policy Compliance",
+        "Store Organization (BOH & FOH)",
+      ],
+      "Guest Experience": [
+        "Customer Service Observation (YOU RULE! / Crowns Offered)",
+        "OSAT – Top 3 Opportunities Reviewed",
+      ],
+      "Financial Performance": [
+        "Sales vs. Plan",
+        "Labor vs. Plan",
+        "Weekly COGS vs. Ideal",
+      ],
+      "Food Safety & Compliance": [
+        "Food Safety Criticals Reviewed",
+        "SOS Compliance (No Parking Cars)",
+        "BK Log Completion",
+        "CHEF Audit Grades Reviewed",
+      ],
+      "Systems & Execution": [
+        "King Board Updated",
+        "Command Center Accuracy",
+        "All Equipment in Working Condition",
+      ],
+      "Facilities & Controls": [
+        "Restrooms Clean & Logs Complete",
+        "Playground Clean & Logs Complete",
+        "Petty Cash Count Matches",
+      ],
+      "Leadership Follow-Up": [
+        "ACR Complaints Reviewed with GM",
+      ],
+    },
+  },
+];
 
-                categoryCard.innerHTML = `
-                    <h2 class="category-title">${category}</h2>
-                    ${itemsHTML}
-                `;
-                
-                contentSection.appendChild(categoryCard);
-            });
-        }
+// Build a default state object from SHEETS
+function buildEmptyState(){
+  const state = { meta: { date:"", store:"", inspector:"" }, sheet: SHEETS[0].key, answers:{} };
+  for(const s of SHEETS){
+    state.answers[s.key] = {};
+    for(const [cat,tasks] of Object.entries(s.categories)){
+      state.answers[s.key][cat] = tasks.map(t => ({
+        title: t, status: null, comment:"", action:"", followUp:""
+      }));
+    }
+  }
+  return state;
+}
 
-        function setStatus(itemId, status) {
-            itemStates[itemId].status = status;
-            renderInspectionItems();
-            updateProgress();
-        }
+let STATE = buildEmptyState();
 
-        function setNotes(itemId, notes) {
-            itemStates[itemId].notes = notes;
-        }
+/* =========== Persistence (Export/Import) =========== */
+function download(filename, text){
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([text], {type:'application/json'}));
+  a.download = filename;
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+document.getElementById('btnExport').addEventListener('click', ()=>{
+  // Capture meta before export
+  captureMeta();
+  download(`ac_inspection_${new Date().toISOString().slice(0,10)}.json`, JSON.stringify(STATE, null, 2));
+});
+document.getElementById('fileImport').addEventListener('change', (e)=>{
+  const f = e.target.files[0];
+  if(!f) return;
+  const reader = new FileReader();
+  reader.onload = ev=>{
+    try{
+      const obj = JSON.parse(String(ev.target.result));
+      // naive validation
+      if(!obj || !obj.answers) throw new Error("Invalid file");
+      STATE = obj;
+      renderAll();
+    }catch(err){
+      alert("Import failed: " + err.message);
+    }
+  };
+  reader.readAsText(f);
+});
+document.getElementById('btnPrint').addEventListener('click', ()=> window.print());
 
-        function updateProgress() {
-            const totalItems = Object.keys(itemStates).length;
-            const completedItems = Object.values(itemStates).filter(item => item.status).length;
-            const percentage = totalItems > 0 ? Math.round((completedItems / totalItems) * 100) : 0;
-            
-            document.getElementById('progressPercent').textContent = `${percentage}%`;
-            document.getElementById('progressFill').style.width = `${percentage}%`;
-        }
+/* =========== UI Rendering =========== */
+const tabsEl = document.getElementById('tabs');
+const gridEl = document.getElementById('grid');
+const barEl = document.getElementById('bar');
+const pctEl = document.getElementById('pct');
+const sheetTitle = document.getElementById('sheetTitle');
+const sheetSubtitle = document.getElementById('sheetSubtitle');
 
-        function exportToExcel() {
-            const date = document.getElementById('inspectionDate').value;
-            const store = document.getElementById('storeLocation').value;
-            const inspector = document.getElementById('inspectorName').value;
+function renderTabs(){
+  tabsEl.innerHTML = '';
+  for(const s of SHEETS){
+    const btn = document.createElement('button');
+    btn.className = 'tab';
+    btn.type = 'button';
+    btn.textContent = s.key;
+    btn.setAttribute('aria-selected', STATE.sheet === s.key ? 'true':'false');
+    btn.addEventListener('click', ()=>{
+      STATE.sheet = s.key;
+      renderAll();
+      window.scrollTo({top:0,behavior:'smooth'});
+    });
+    tabsEl.appendChild(btn);
+  }
+}
 
-            const data = [
-                ['DOSSANI PARADISE - AC STORE INSPECTION CHECKLIST'],
-                [''],
-                ['Date:', date],
-                ['Store Location:', store],
-                ['Inspector:', inspector],
-                [''],
-                ['Category', 'Inspection Item', 'Status', 'Notes']
-            ];
+function choiceChip(val, current, onPick){
+  const b = document.createElement('button');
+  b.type = 'button';
+  b.className = 'chip';
+  b.dataset.val = val;
+  b.setAttribute('aria-pressed', current === val ? 'true':'false');
+  b.innerHTML = (val === 'Yes' ? '✅' : val === 'No' ? '❌' : '⏳') + ' ' + val;
+  b.addEventListener('click', ()=> onPick(val));
+  return b;
+}
 
-            Object.entries(inspectionData).forEach(([category, items]) => {
-                items.forEach((item, index) => {
-                    const itemId = `${category}-${index}`;
-                    const state = itemStates[itemId] || { status: 'Not Checked', notes: '' };
-                    data.push([
-                        index === 0 ? category : '',
-                        item,
-                        state.status || 'Not Checked',
-                        state.notes
-                    ]);
-                });
-                data.push(['', '', '', '']);
-            });
+function renderGrid(){
+  const s = SHEETS.find(x => x.key === STATE.sheet);
+  sheetTitle.textContent = s.title;
+  sheetSubtitle.textContent = `Sheet: ${s.key}`;
+  gridEl.innerHTML = '';
 
-            const ws = XLSX.utils.aoa_to_sheet(data);
-            ws['!cols'] = [
-                { wch: 20 },
-                { wch: 40 },
-                { wch: 15 },
-                { wch: 50 }
-            ];
+  const data = STATE.answers[s.key];
+  let done = 0, total = 0;
 
-            const wb = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(wb, ws, 'Inspection');
-            XLSX.writeFile(wb, `AC_Inspection_${date}.xlsx`);
-        }
+  for(const [cat, tasks] of Object.entries(data)){
+    const wrap = document.createElement('div');
+    wrap.className = 'cat';
 
-        function exportToPDF() {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-            
-            const date = document.getElementById('inspectionDate').value;
-            const store = document.getElementById('storeLocation').value;
-            const inspector = document.getElementById('inspectorName').value;
+    const h3 = document.createElement('h3');
+    h3.textContent = cat;
+    wrap.appendChild(h3);
 
-            let yPos = 20;
-            
-            doc.setFontSize(16);
-            doc.setFont(undefined, 'bold');
-            doc.text('DOSSANI PARADISE', 105, yPos, { align: 'center' });
-            yPos += 7;
-            doc.setFontSize(14);
-            doc.text('AC Store Inspection Checklist', 105, yPos, { align: 'center' });
-            yPos += 15;
-            
-            doc.setFontSize(10);
-            doc.setFont(undefined, 'normal');
-            doc.text(`Date: ${date}`, 20, yPos);
-            yPos += 7;
-            doc.text(`Store Location: ${store}`, 20, yPos);
-            yPos += 7;
-            doc.text(`Inspector: ${inspector}`, 20, yPos);
-            yPos += 12;
+    tasks.forEach((t, idx)=>{
+      total++;
+      if(t.status === 'Yes') done++;
 
-            doc.setFontSize(9);
-            Object.entries(inspectionData).forEach(([category, items]) => {
-                if (yPos > 250) {
-                    doc.addPage();
-                    yPos = 20;
-                }
-                
-                doc.setFont(undefined, 'bold');
-                doc.text(category, 20, yPos);
-                yPos += 7;
-                
-                doc.setFont(undefined, 'normal');
-                items.forEach((item, index) => {
-                    if (yPos > 270) {
-                        doc.addPage();
-                        yPos = 20;
-                    }
-                    
-                    const itemId = `${category}-${index}`;
-                    const state = itemStates[itemId] || { status: 'Not Checked', notes: '' };
-                    
-                    const text = `• ${item}: ${state.status || 'Not Checked'}`;
-                    doc.text(text, 25, yPos);
-                    yPos += 5;
-                    
-                    if (state.notes) {
-                        doc.setFontSize(8);
-                        doc.text(`  Notes: ${state.notes}`, 25, yPos);
-                        doc.setFontSize(9);
-                        yPos += 5;
-                    }
-                });
-                yPos += 5;
-            });
+      const row = document.createElement('div');
+      row.className = 'task';
 
-            doc.save(`AC_Inspection_${date}.pdf`);
-        }
+      const title = document.createElement('div');
+      title.className = 'task-title';
+      title.textContent = t.title;
 
-        initializePage();
-    </script>
-</body>
-</html>
+      const choices = document.createElement('div');
+      choices.className = 'choices';
+      ['Yes','Pending','No'].forEach(opt=>{
+        choices.appendChild(choiceChip(opt, t.status, (val)=>{
